@@ -1,31 +1,59 @@
-<dialog id="dialog" class="mdl-dialog">
-  <h3 class="mdl-dialog__title">MDL Dialog</h3>
+<dialog id="dialog_crear_cobro" class="mdl-dialog">
+<form action="{{ route('cobro.store') }}" method="post" id="save_cobro" >
+  {!! csrf_field() !!}
+  <h3 class="mdl-dialog__title">Crear Cobro</h3>
   <div class="mdl-dialog__content">
-    <p>
-      This is an example of the Material Design Lite dialog component.
-      Please use responsibly.
-    </p>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="nombre" name="nombre" required="">
+        <label class="mdl-textfield__label" for="nombre">Nombre del cobro...</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "3" id="localidad" name="localidad" required="" placeholder="Localidad..."></textarea>
+        <label class="mdl-textfield__label" for="localidad">Localidad...</label>
+      </div>
   </div>
   <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button">Close</button>
-    <button type="button" class="mdl-button" disabled>Disabled action</button>
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="save">Guardar</button>
+    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent cerrar">Cerrar</button>
   </div>
+ </form>
 </dialog>
 
 <script>
-  (function() {
-    'use strict';
-    var dialogButton = document.querySelector('.dialog-button');
-    var dialog = document.querySelector('#dialog');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    dialogButton.addEventListener('click', function() {
-       dialog.showModal();
+  $(function() {
+
+    var dialog = document.querySelector('#dialog_crear_cobro');
+
+    $('.btn_crear_cobro').click(function(event)
+    {
+      dialog.showModal();
     });
-    dialog.querySelector('button:not([disabled])')
-    .addEventListener('click', function() {
+
+    $('.cerrar').click(function(event)
+    {
       dialog.close();
     });
-  }());
+
+    $("#save_cobro").submit(function(e) {    
+      var form = $(e.target);
+      $.ajax(
+        {
+          type: "POST",
+          url: "{{ route('cobro.store') }}",//form.attr("action"),
+          data:$("#save_cobro").serialize(),
+          success: function (data)
+          {  
+            console.log(data);
+            $("#save_cobro")[0].reset();
+          },
+          error: function(jqXHR, text, error)
+          {
+            console.log(data);          
+          }
+        }
+      );
+      return false;
+    });
+
+  });
 </script>

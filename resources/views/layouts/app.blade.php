@@ -8,20 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>{{ config('app.name') }}</title>
     <meta name="mobile-web-app-capable" content="yes">
-
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
-    <link rel="shortcut icon" href="images/favicon.png">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <style>
       #view-source {
         position: fixed;
@@ -44,7 +37,7 @@
           font-weight: 300;
           font-size: 20px;
       }
-.mdl-dialog {
+      .mdl-dialog {
   border: none;
   box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2);
   width: 280px; }
@@ -87,7 +80,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">{{ config('app.name') }}</span>
+          <span class="mdl-layout-title">nombre del cobro</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -114,27 +107,25 @@
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
-          <div class="demo-avatar-dropdown">
-            <span>{{ Auth::user()->email }} </span>
+          <div class="demo-avatar-dropdown" style="font-size: 30px;font-weight: 100;">
+            <a href="{{ route('home')}}"><i class="material-icons" style="color: #fff;">arrow_back</i></a><span>{{ config('app.name') }}</span>
             <div class="mdl-layout-spacer"></div>
-            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-              <i class="material-icons" role="presentation">arrow_drop_down</i>
-              <span class="visuallyhidden">Accounts</span>
-            </button>
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-              <li class="mdl-menu__item">Cobro 1</li>
-              <li class="mdl-menu__item dialog-button"><i class="material-icons">add</i>Crear nuevo cobro...</li>
-            </ul>
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Inicio</a>
         </nav>
       </div>
-        @yield('content')
+      <main class="mdl-layout__content mdl-color--grey-100">
+          <div class="mdl-grid">
+              <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                  @yield('content')
+              </div>
+          </div>
+      </main>        
     </div>
     
-    @include('layouts.modals.crear_cobro')
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
   </body>
 </html>

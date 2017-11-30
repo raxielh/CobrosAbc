@@ -34,7 +34,7 @@ class CobroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        var_dump($request['nombre']);
     }
 
     /**

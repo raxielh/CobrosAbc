@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Exception;
+use App\Cobro;
+
 
 class CobroController extends Controller
 {
@@ -13,7 +17,9 @@ class CobroController extends Controller
      */
     public function index()
     {
-        //
+      $data = Cobro::where('user_id',Auth::user()->id)->get();
+      return response()->json($data);
+      //return view('home',compact('data'));
     }
 
     /**
@@ -34,7 +40,17 @@ class CobroController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request['nombre']);
+      try {
+        $cobro = new Cobro();
+        $cobro->nombre = ucwords($request->nombre);
+        $cobro->localidad = $request->localidad;
+        $cobro->color = $request->color;
+        $cobro->user_id = Auth::user()->id;
+        $cobro->save();
+        return "Cobro creado con exito";
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
     }
 
     /**
@@ -45,7 +61,8 @@ class CobroController extends Controller
      */
     public function show($id)
     {
-        //
+        $cobro = Cobro::findOrFail($id);
+        return response()->json($cobro);
     }
 
     /**
@@ -68,7 +85,16 @@ class CobroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      try {
+        $cobro = Cobro::findOrFail($id);
+        $cobro->nombre = ucwords($request->nombre);
+        $cobro->localidad = $request->localidad;
+        $cobro->color = $request->color;
+        $cobro->update();
+        return "Cobro Editado con exito";
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
     }
 
     /**
@@ -79,6 +105,13 @@ class CobroController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+          $cobro = Cobro::findOrFail($id);
+          $cobro->delete();
+          return "Cobro borrado";
+        } catch (Exception $e) {
+          return "error fatal ->".$e->getMessage();
+        }
+
     }
 }

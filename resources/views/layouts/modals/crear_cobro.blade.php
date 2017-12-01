@@ -1,15 +1,20 @@
 <dialog id="dialog_crear_cobro" class="mdl-dialog">
-<form action="{{ route('cobro.store') }}" method="post" id="save_cobro" >
+<form action="" method="post" id="save_cobro" >
   {!! csrf_field() !!}
-  <h3 class="mdl-dialog__title">Crear Cobro</h3>
+  <input type="hidden" id="accion" value="1">
+  <h3 class="mdl-dialog__title" id="title">Crear Cobro</h3>
   <div class="mdl-dialog__content">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="nombre" name="nombre" required="">
+        <input class="mdl-textfield__input" type="text"  name="nombre" required="">
         <label class="mdl-textfield__label" for="nombre">Nombre del cobro...</label>
       </div>
       <div class="mdl-textfield mdl-js-textfield">
-        <textarea class="mdl-textfield__input" type="text" rows= "3" id="localidad" name="localidad" required="" placeholder="Localidad..."></textarea>
+        <textarea class="mdl-textfield__input" type="text" rows= "3"  name="localidad" required="" placeholder="Localidad..."></textarea>
         <label class="mdl-textfield__label" for="localidad">Localidad...</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="color"  name="color" required="" placeholder="Elije un color..." value="#46B6AC">
+        <label class="mdl-textfield__label" for="color">Elije un color...</label>
       </div>
   </div>
   <div class="mdl-dialog__actions">
@@ -18,42 +23,3 @@
   </div>
  </form>
 </dialog>
-
-<script>
-  $(function() {
-
-    var dialog = document.querySelector('#dialog_crear_cobro');
-
-    $('.btn_crear_cobro').click(function(event)
-    {
-      dialog.showModal();
-    });
-
-    $('.cerrar').click(function(event)
-    {
-      dialog.close();
-    });
-
-    $("#save_cobro").submit(function(e) {    
-      var form = $(e.target);
-      $.ajax(
-        {
-          type: "POST",
-          url: "{{ route('cobro.store') }}",//form.attr("action"),
-          data:$("#save_cobro").serialize(),
-          success: function (data)
-          {  
-            console.log(data);
-            $("#save_cobro")[0].reset();
-          },
-          error: function(jqXHR, text, error)
-          {
-            console.log(data);          
-          }
-        }
-      );
-      return false;
-    });
-
-  });
-</script>

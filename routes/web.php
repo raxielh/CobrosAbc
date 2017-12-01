@@ -18,5 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/dashboard/{cobro}', 'DashboardController@index')->name('dashboard');
+
 Route::resource('cobro', 'CobroController');
+
+Route::get('/barrio/{cobro}', 'BarrioController@index')->name('barrio');
+Route::resource('barrio', 'BarrioController');

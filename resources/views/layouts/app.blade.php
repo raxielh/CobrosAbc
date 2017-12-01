@@ -80,7 +80,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">nombre del cobro</span>
+          <span class="mdl-layout-title" style="color:{{$data['nombre_cobro']['color']}}">{{$data["nombre_cobro"]["nombre"]}}</span>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -113,13 +113,18 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Inicio</a>
+          <a class="mdl-navigation__link" href="{{ route('dashboard',[$data['cobro']]) }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Inicio
+          </a>
+          <a class="mdl-navigation__link" href="{{ route('barrio',[$data['cobro']]) }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">directions</i>Barrios
+          </a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">
           <div class="mdl-grid">
-              <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                  @yield('content')
+              <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">               
+                @yield('content')
               </div>
           </div>
       </main>        

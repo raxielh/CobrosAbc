@@ -13,12 +13,14 @@ class CreateCobroTable extends Migration
      */
     public function up()
     {
+      Schema::create('cobro', function (Blueprint $table) {
         $table->increments('id');
         $table->string('nombre');
         $table->string('localidad')->nullable();
         $table->boolean('estado')->default(1);
         $table->rememberToken();
         $table->timestamps();
+      });
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateCobroTable extends Migration
      */
     public function down()
     {
-        //
+       Schema::dropIfExists('cobro');
     }
 }

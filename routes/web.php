@@ -22,6 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard/{cobro}', 'DashboardController@index')->name('dashboard');
 
 Route::resource('cobro', 'CobroController');
-
-Route::get('/barrio/{cobro}', 'BarrioController@index')->name('barrio');
 Route::resource('barrio', 'BarrioController');
+Route::get('/barrio_get', 'BarrioController@get_data_barrio')->name('barrio_get');

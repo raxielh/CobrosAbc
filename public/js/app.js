@@ -1,5 +1,9 @@
 $(function() {
 	console.log('Ready');
+	$('#tbl').DataTable( {
+	  responsive: true
+	} );
+
 });
 
 function mensaje(d){

@@ -55,7 +55,7 @@
     $(".load").show();
     $.getJSON( "{{ route('cobro.index') }}", function( data ) {
        if(data.length==0){
-         var html = '<h2 style="font-weight: 200;">No tienes prestamos creados :(<h2>';
+         var html = '<h2 style="font-weight: 200;">No tienes cobros :(<h2>';
        }else{
            var html = '';
            $.each(data, function(i, record) {

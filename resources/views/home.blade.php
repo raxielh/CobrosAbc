@@ -123,7 +123,7 @@
               <div class="mdl-spinner mdl-js-spinner is-active load"></div>
             </a>
 	          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="hdrbtn">
-	            {{ Auth::user()->name }} <i class="material-icons">more_vert</i>
+	            {{ Auth::user()->name }}
 	          </button>
 	          <a href="{{ route('logout') }}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 	            <i class="material-icons">exit_to_app</i>
@@ -131,9 +131,6 @@
 	          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 	            {{ csrf_field() }}
 	          </form>
-	          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-	            <li class="mdl-menu__item">Editar Perfil</li>
-	          </ul>
 	      </nav>
 	    </div>
 	  </header>

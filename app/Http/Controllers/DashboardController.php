@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Cookie;
+use Request;
 use App\Cobro;
 
 class DashboardController extends Controller
@@ -15,26 +15,16 @@ class DashboardController extends Controller
 
     public function index($cobro)
     {
-
-        /*
-        Cookie::forget('cobro');
-        $nueva_cookie = cookie('cobro',$cobro, 9999);
-        $response = response("cookie creada");
-        $response->withCookie($nueva_cookie);
-        return \Request::cookie('cobro');
-        */
-        $nueva_cookie = cookie('cobro',$cobro, 9999);
-        $response = response("cookie creada");
-        $response->withCookie($nueva_cookie);
-        dd($response);
-
+    	Cookie::forget('cobro');
+      Cookie::queue('cobro',$cobro,9999);
+			//return Request::cookie('nombre');
     	$nombre_cobro = Cobro::findOrFail($cobro);
     	$data = array(
     				"cobro"=>$cobro,
     				"nombre_cobro"=>$nombre_cobro,
-					"datos" =>null
-				);
-        return view('dashboard.home',compact('data'));
+					  "datos" =>null
+				    );
+      return view('dashboard.home',compact('data'));
     }
 
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use Cookie;
 use App\Cobro;
 use App\Barrio;
 
@@ -13,8 +15,9 @@ class BarrioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($cobro)
+    public function index()
     {
+        $cobro = Cookie::get('cobro');
         $nombre_cobro = Cobro::findOrFail($cobro);
         $data = array(
                     "cobro"=>$cobro,
@@ -22,6 +25,18 @@ class BarrioController extends Controller
                     "datos" =>null
                 );
         return view('barrios.index',compact('data'));
+    }
+
+    public function get_data_barrio()
+    {
+        $cobro = Cookie::get('cobro');
+        $data = Barrio::where('cobro_id',$cobro)->get();
+        //return response()->json($data);
+        return Datatables::of($data)->addColumn('action', function ($data){
+                return '<a href="'.url('barrio').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
+        })->addColumn('action2', function ($data){
+                return '<a href="#" onclick="borrar('.$data->id.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i> Borrar</a>';
+        })->make(true);
     }
 
     /**
@@ -40,14 +55,14 @@ class BarrioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$cobro)
+    public function store(Request $request)
     {
       try {
-        $cobro = new Cobro();
-        $cobro->nombre = ucwords($request->nombre);
-        $cobro->referencia = $request->referencia;
-        $cobro->color = $cobro;
-        $cobro->save();
+        $barrio = new Barrio();
+        $barrio->nombre = ucwords($request->nombre);
+        $barrio->referencia = $request->referencia;
+        $barrio->cobro_id = Cookie::get('cobro');
+        $barrio->save();
         return "Barrio creado con exito";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
@@ -62,7 +77,7 @@ class BarrioController extends Controller
      */
     public function show($id)
     {
-        //
+      //
     }
 
     /**
@@ -73,7 +88,15 @@ class BarrioController extends Controller
      */
     public function edit($id)
     {
-        //
+      $cobro = Cookie::get('cobro');
+      $nombre_cobro = Cobro::findOrFail($cobro);
+      $d=Barrio::findOrFail($id);
+      $data = array(
+                  "cobro"=>$cobro,
+                  "nombre_cobro"=>$nombre_cobro,
+                  "datos" =>$d
+              );
+      return view('barrios.edit',compact('data'));
     }
 
     /**
@@ -85,7 +108,16 @@ class BarrioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      try {
+        $barrio = Barrio::findOrFail($id);
+        $barrio->nombre = ucwords($request->nombre);
+        $barrio->referencia = $request->referencia;
+        $barrio->cobro_id = Cookie::get('cobro');
+        $barrio->update();
+        return "Barrio editado con exito";
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
     }
 
     /**
@@ -96,6 +128,12 @@ class BarrioController extends Controller
      */
     public function destroy($id)
     {
-        //
+      try {
+        $barrio = Barrio::findOrFail($id);
+        $barrio->delete();
+        return "Barrio borrado";
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
     }
 }

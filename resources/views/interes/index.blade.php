@@ -1,34 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 style="margin: 6px;color: #676767;font-weight: 200;"><a href="{{ route('barrio.index')}}"><i class="material-icons" style="color: #263238;">arrow_back</i></a> Editar Barrio</h3>
-<form action="{{ url('barrio')}}/{{($data['datos']['id'])}}" method="post" id="save_barrio">
+<h3 style="margin: 6px;color: #676767;font-weight: 200;">Interes</h3>
+<form action="{{ route('interes.store')}}" method="post" id="save_barrio">
   {!! csrf_field() !!}
-   <input type="hidden" name="_method" value="PUT">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-        <label for="input_text" class="mdl-textfield__label">Nombre</label>
-        <input type="text" class="mdl-textfield__input" id="input_text" name="nombre" required="" value="  {{($data['datos']['nombre'])}}" />
-    </div>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <label for="input_email" class="mdl-textfield__label">Referencia</label>
-        <input type="text" class="mdl-textfield__input" id="input_email" name="referencia" value="  {{($data['datos']['referencia'])}}"/>
+        <label for="input_text" class="mdl-textfield__label">Numero</label>
+        <input type="number" class="mdl-textfield__input" id="input_text" name="numero" required="" />
     </div>
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored "><i class="material-icons">save</i>Guardar</button>
     <hr>
-</form>
     <table id="tbl_barrio" class="table display responsive no-wrap" style="width:100% !important">
       <thead>
           <tr>
-              <th>Nombre</th>
-              <th>Referencia</th>
-              <th></th>
+              <th>Interes</th>
+              <th></th><th></th>
           </tr>
       </thead>
     </table>
-
+</form>
 <script type="text/javascript">
 $(function() {
-  $("#barrio").addClass("active");
+  $("#interes").addClass("active");
   cargar();
 
   $("#save_barrio").submit(function(e) {
@@ -43,7 +36,6 @@ $(function() {
         data:datos,
         success: function (data)
         {
-          $("#save_barrio").slideUp();
           $(".load").hide();
           $("#save_barrio")[0].reset();
           cargar();
@@ -63,13 +55,14 @@ function cargar(){
   var table=$('#tbl_barrio').DataTable( {
       "destroy": true,
       "processing": true,
-      ajax: '{{ route('barrio_get')}}',
+      ajax: '{{ route('interes_get')}}',
       columns: [
-          {data: 'nombre'},
-          {data: 'referencia'},
+          {data: 'numero'},
           {data: 'action', name: 'action', orderable: false, searchable: false},
+          {data: 'action2', name: 'action2', orderable: false, searchable: false},
       ],
       columnDefs: [
+          { width: 110, targets: 1 },
           { width: 110, targets: 2 }
       ]
   });
@@ -78,6 +71,7 @@ function cargar(){
       .order( 'desc' )
       .draw();
 }
+
 function borrar(id){
   $.confirm({
       title: 'Confirmar!',
@@ -87,7 +81,7 @@ function borrar(id){
             $(".load").show();
             $.ajax({
               method: "POST",
-              url: "{{ url('barrio') }}/"+id,
+              url: "{{ url('interes') }}/"+id,
               data: { _token: "{{ csrf_token() }}",_method: "DELETE" }
             }).done(function( data ) {
               $(".load").hide();

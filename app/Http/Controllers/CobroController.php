@@ -25,7 +25,7 @@ class CobroController extends Controller
       return response()->json($data);
       //return view('home',compact('data'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *

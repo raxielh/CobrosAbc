@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Cookie;
 use App\Cobro;
+use App\Cliente;
 use App\Barrio;
 
-class BarrioController extends Controller
+class ClienteController extends Controller
 {
   public function __construct()
   {
@@ -23,21 +25,26 @@ class BarrioController extends Controller
     {
         $cobro = Cookie::get('cobro');
         $nombre_cobro = Cobro::findOrFail($cobro);
+        $barrio = Barrio::where('cobro_id',$cobro)->pluck('nombre', 'id');
         $data = array(
                     "cobro"=>$cobro,
                     "nombre_cobro"=>$nombre_cobro,
-                    "datos" =>null
+                    "datos" =>$barrio
                 );
-        return view('barrios.index',compact('data'));
+        return view('clientes.index',compact('data'));
     }
 
-    public function get_data_barrio()
+    public function get_data_clientes()
     {
         $cobro = Cookie::get('cobro');
-        $data = Barrio::where('cobro_id',$cobro)->get();
-        //return response()->json($data);
+        //$data = Cliente::where('cobro_id',$cobro)->get();
+       $data =  DB::table('clientes')
+                ->join('barrios', 'clientes.barrio_id', '=', 'barrios.id')
+                ->select('clientes.*','barrios.nombre as barrio')
+                ->where('clientes.cobro_id',$cobro)
+                ->get();
         return Datatables::of($data)->addColumn('action', function ($data){
-                return '<a href="'.url('barrio').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
+                return '<a href="'.url('clientes').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
         })->addColumn('action2', function ($data){
                 return '<a href="#" onclick="borrar('.$data->id.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i> Borrar</a>';
         })->make(true);
@@ -62,12 +69,16 @@ class BarrioController extends Controller
     public function store(Request $request)
     {
       try {
-        $barrio = new Barrio();
-        $barrio->nombre = ucwords($request->nombre);
-        $barrio->referencia = $request->referencia;
-        $barrio->cobro_id = Cookie::get('cobro');
-        $barrio->save();
-        return "Barrio creado con exito";
+        $cliente = new Cliente();
+        $cliente->nombre = $request->nombre;
+        $cliente->identificacion = $request->identificacion;
+        $cliente->telefono = $request->telefono;
+        $cliente->direccion = $request->direccion;
+        $cliente->referencia = $request->referencia;
+        $cliente->barrio_id = $request->barrio;
+        $cliente->cobro_id = Cookie::get('cobro');
+        $cliente->save();
+        return "Cliente creado con exito";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }
@@ -94,13 +105,15 @@ class BarrioController extends Controller
     {
       $cobro = Cookie::get('cobro');
       $nombre_cobro = Cobro::findOrFail($cobro);
-      $d=Barrio::findOrFail($id);
+      $d=Cliente::findOrFail($id);
+      $barrio = Barrio::where('cobro_id',$cobro)->pluck('nombre', 'id');
       $data = array(
                   "cobro"=>$cobro,
                   "nombre_cobro"=>$nombre_cobro,
-                  "datos" =>$d
+                  "datos" =>$d,
+                  "barrio" => $barrio
               );
-      return view('barrios.edit',compact('data'));
+      return view('clientes.edit',compact('data'));
     }
 
     /**
@@ -113,12 +126,11 @@ class BarrioController extends Controller
     public function update(Request $request, $id)
     {
       try {
-        $barrio = Barrio::findOrFail($id);
-        $barrio->nombre = ucwords($request->nombre);
-        $barrio->referencia = $request->referencia;
-        $barrio->cobro_id = Cookie::get('cobro');
-        $barrio->update();
-        return "Barrio editado con exito";
+        $interes = Interes::findOrFail($id);
+        $interes->numero = $request->numero;
+        $interes->cobro_id = Cookie::get('cobro');
+        $interes->update();
+        return "Interes editado con exito";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }
@@ -133,9 +145,9 @@ class BarrioController extends Controller
     public function destroy($id)
     {
       try {
-        $barrio = Barrio::findOrFail($id);
-        $barrio->delete();
-        return "Barrio borrado";
+        $interes = Interes::findOrFail($id);
+        $interes->delete();
+        return "Interes borrado";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }

@@ -8,22 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>{{ config('app.name') }}</title>
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 
-  <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-  <link href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css" rel="stylesheet">
-  <script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
-  <script src=".http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-  <script src=" {{ asset('js/jquery.dataTables.js') }}"></script>
-  <script src="//cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+    <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css" rel="stylesheet">
+    <script src="http://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src=".http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src=" {{ asset('js/jquery.dataTables.js') }}"></script>
+    <script src="//cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
+
+    <script src="{{ asset('js/semantic.js') }}"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
     <style>
@@ -169,8 +171,14 @@
           <a class="mdl-navigation__link" id="home" href="{{ route('dashboard',[$data['cobro']]) }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Inicio
           </a>
+          <a class="mdl-navigation__link" id="interes" href="{{ route('interes.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forward_10</i>Interes
+          </a>
           <a class="mdl-navigation__link" id="barrio" href="{{ route('barrio.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">directions</i>Barrios
+          </a>
+          <a class="mdl-navigation__link" id="clientes" href="{{ route('clientes.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">face</i>Clientes
           </a>
         </nav>
       </div>
@@ -187,5 +195,10 @@
       <button class="mdl-snackbar__action" type="button"></button>
     </div>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#buscar_1').dropdown();
+      });
+    </script>
   </body>
 </html>

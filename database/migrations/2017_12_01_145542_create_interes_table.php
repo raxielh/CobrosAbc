@@ -15,7 +15,7 @@ class CreateInteresTable extends Migration
     {
         Schema::create('interes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero');
+            $table->integer('numero');
             $table->integer('cobro_id')->unsigned();
             $table->foreign('cobro_id')->references('id')->on('cobros');
             $table->timestamps();

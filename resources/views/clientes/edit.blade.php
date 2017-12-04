@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 style="margin: 6px;color: #676767;font-weight: 200;"><a href="{{ route('interes.index')}}"><i class="material-icons" style="color: #263238;">arrow_back</i></a> Editar Cliente</h3>
-<form action="{{ url('interes')}}/{{($data['datos']['id'])}}" method="post" id="save_barrio">
+<h3 style="margin: 6px;color: #676767;font-weight: 200;"><a href="{{ route('clientes.index')}}"><i class="material-icons" style="color: #263238;">arrow_back</i></a> Editar Cliente</h3>
+<form action="{{ url('clientes')}}/{{($data['datos']['id'])}}" method="post" id="save_barrio">
   {!! csrf_field() !!}
    <input type="hidden" name="_method" value="PUT">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
@@ -26,7 +26,15 @@
         <input type="text" class="mdl-textfield__input" id="input_text" name="referencia" value="{{($data['datos']['referencia'])}}"  />
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-      {{ Form::select('barrio_id',$data['barrio'], null,['id'=>'buscar_1','required'=>'true','class'=>"ui search dropdown",'name'=>"barrio"]) }} <a href="{{ route('barrio.index') }}"><i class="material-icons">add_circle</i></a>
+      <select name="barrio" required class="ui search dropdown" id="buscar_1">
+        @foreach ($data['barrio'] as $key => $value)
+            <option value="{{ $value['id'] }}"
+            @if ($value['id'] == $data['datos']['barrio_id'])
+                selected="selected"
+            @endif
+            >{{ $value['nombre'] }}</option>
+        @endforeach
+      </select><a href="{{ route('barrio.index') }}"><i class="material-icons">add_circle</i></a>
     </div>
 
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored "><i class="material-icons">save</i> Guardar</button>
@@ -35,7 +43,12 @@
     <table id="tbl_barrio" class="table display responsive no-wrap" style="width:100% !important">
       <thead>
           <tr>
-              <th>Interes</th>
+              <th>Nombre</th>
+              <th>Identificacion</th>
+              <th>Telefono</th>
+              <th>Direccion</th>
+              <th>Referencia</th>
+              <th>Barrio</th>
               <th></th>
           </tr>
       </thead>
@@ -78,18 +91,23 @@ function cargar(){
   var table=$('#tbl_barrio').DataTable( {
       "destroy": true,
       "processing": true,
-      ajax: '{{ route('interes_get')}}',
+      ajax: '{{ route('clientes_get')}}',
       columns: [
-          {data: 'numero'},
+          {data: 'nombre'},
+          {data: 'identificacion'},
+          {data: 'telefono'},
+          {data: 'direccion'},
+          {data: 'referencia'},
+          {data: 'barrio'},
           {data: 'action', name: 'action', orderable: false, searchable: false},
       ],
       columnDefs: [
-          { width: 110, targets: 1 }
+          { width: 100, targets: 6 },
       ]
   });
   table
       .column( '0:visible' )
-      .order( 'desc' )
+      .order( 'asc' )
       .draw();
 }
 function borrar(id){
@@ -101,7 +119,7 @@ function borrar(id){
             $(".load").show();
             $.ajax({
               method: "POST",
-              url: "{{ url('interes') }}/"+id,
+              url: "{{ url('clientes') }}/"+id,
               data: { _token: "{{ csrf_token() }}",_method: "DELETE" }
             }).done(function( data ) {
               $(".load").hide();

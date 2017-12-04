@@ -25,8 +25,14 @@
         <input type="text" class="mdl-textfield__input" id="input_text" name="referencia" />
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
-      {{ Form::select('barrio_id',$data['datos'], null,['id'=>'buscar_1','required'=>'true','class'=>"ui search dropdown",'name'=>"barrio"]) }}<a href="{{ route('barrio.index') }}"><i class="material-icons">add_circle</i></a>
+      <select name="barrio" required class="ui search dropdown" id="buscar_1">
+          <option value="" selected="selected">No Asignado</option>
+          @foreach ($data['datos'] as $key => $value)
+            <option value="{{ $key }}">{{ $value }}</option>
+          @endforeach
+      </select><a href="{{ route('barrio.index') }}"><i class="material-icons">add_circle</i></a>
     </div>
+
 
 
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored "><i class="material-icons">save</i>Guardar</button>
@@ -112,7 +118,7 @@ function borrar(id){
             $(".load").show();
             $.ajax({
               method: "POST",
-              url: "{{ url('interes') }}/"+id,
+              url: "{{ url('clientes') }}/"+id,
               data: { _token: "{{ csrf_token() }}",_method: "DELETE" }
             }).done(function( data ) {
               $(".load").hide();

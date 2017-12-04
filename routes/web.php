@@ -31,3 +31,10 @@ Route::get('/interes_get', 'InteresController@get_data_interes')->name('interes_
 
 Route::resource('clientes', 'ClienteController');
 Route::get('/clientes_get', 'ClienteController@get_data_clientes')->name('clientes_get');
+
+Route::resource('capital', 'CapitalController');
+Route::get('/capital_get', 'CapitalController@get_data_capital')->name('capital_get');
+
+Route::resource('prestamo', 'PrestamoController');
+Route::get('/prestamo_get', 'PrestamoController@get_data_prestamo')->name('prestamo_get');
+Route::get('/prestamo_ordenar', 'PrestamoController@ordenar');

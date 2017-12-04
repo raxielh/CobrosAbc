@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Cookie;
 use App\Cobro;
-use App\Cliente;
-use App\Barrio;
+use App\Capital;
 
-class ClienteController extends Controller
+class CapitalController extends Controller
 {
   public function __construct()
   {
@@ -25,26 +23,24 @@ class ClienteController extends Controller
     {
         $cobro = Cookie::get('cobro');
         $nombre_cobro = Cobro::findOrFail($cobro);
-        $barrio = Barrio::where('cobro_id',$cobro)->pluck('nombre', 'id');
+        $cap = Capital::where('cobro_id',$cobro)
+                ->selectRaw('FORMAT(sum(monto),0) as total')->get();
         $data = array(
                     "cobro"=>$cobro,
                     "nombre_cobro"=>$nombre_cobro,
-                    "datos" =>$barrio
+                    "datos" =>$cap
                 );
-        return view('clientes.index',compact('data'));
+        return view('capital.index',compact('data'));
     }
 
-    public function get_data_clientes()
+    public function get_data_capital()
     {
         $cobro = Cookie::get('cobro');
-        //$data = Cliente::where('cobro_id',$cobro)->get();
-       $data =  DB::table('clientes')
-                ->join('barrios', 'clientes.barrio_id', '=', 'barrios.id')
-                ->select('clientes.*','barrios.nombre as barrio')
-                ->where('clientes.cobro_id',$cobro)
-                ->get();
+        $data = Capital::where('cobro_id',$cobro)
+                ->selectRaw('Capital.*,FORMAT(monto,0) as mascara_monto')->get();
+        //response()->json($data);
         return Datatables::of($data)->addColumn('action', function ($data){
-                return '<a href="'.url('clientes').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
+                return '<a href="'.url('capital').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
         })->addColumn('action2', function ($data){
                 return '<a href="#" onclick="borrar('.$data->id.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i> Borrar</a>';
         })->make(true);
@@ -69,16 +65,12 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
       try {
-        $cliente = new Cliente();
-        $cliente->nombre = ucwords($request->nombre);
-        $cliente->identificacion = $request->identificacion;
-        $cliente->telefono = $request->telefono;
-        $cliente->direccion = $request->direccion;
-        $cliente->referencia = $request->referencia;
-        $cliente->barrio_id = $request->barrio;
-        $cliente->cobro_id = Cookie::get('cobro');
-        $cliente->save();
-        return "Cliente creado con exito";
+        $capital = new Capital();
+        $capital->monto = ($request->monto);
+        $capital->referencia = $request->referencia;
+        $capital->cobro_id = Cookie::get('cobro');
+        $capital->save();
+        return "Capital creado con exito";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }
@@ -105,15 +97,13 @@ class ClienteController extends Controller
     {
       $cobro = Cookie::get('cobro');
       $nombre_cobro = Cobro::findOrFail($cobro);
-      $d=Cliente::findOrFail($id);
-      $barrio = Barrio::where('cobro_id',$cobro)->get();
+      $d=Capital::findOrFail($id);
       $data = array(
                   "cobro"=>$cobro,
                   "nombre_cobro"=>$nombre_cobro,
-                  "datos" =>$d,
-                  "barrio" => $barrio
+                  "datos" =>$d
               );
-      return view('clientes.edit',compact('data'));
+      return view('capital.edit',compact('data'));
     }
 
     /**
@@ -126,16 +116,12 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
       try {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->nombre = ucwords($request->nombre);
-        $cliente->identificacion = $request->identificacion;
-        $cliente->telefono = $request->telefono;
-        $cliente->direccion = $request->direccion;
-        $cliente->referencia = $request->referencia;
-        $cliente->barrio_id = $request->barrio;
-        $cliente->cobro_id = Cookie::get('cobro');
-        $cliente->update();
-        return "Cliente editado con exito";
+        $capital = Capital::findOrFail($id);
+        $capital->monto = ($request->monto);
+        $capital->referencia = $request->referencia;
+        $capital->cobro_id = Cookie::get('cobro');
+        $capital->update();
+        return "Capital editado con exito";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }
@@ -150,9 +136,9 @@ class ClienteController extends Controller
     public function destroy($id)
     {
       try {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->delete();
-        return "Cliente borrado";
+        $capital = Capital::findOrFail($id);
+        $capital->delete();
+        return "Capital borrado";
       } catch (Exception $e) {
         return "error fatal ->".$e->getMessage();
       }

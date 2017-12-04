@@ -38,6 +38,9 @@
         margin-bottom: 40px;
         z-index: 900;
       }
+      td{
+        text-align: center;
+      }
       .jconfirm .jconfirm-holder {
           max-height: 80%;
           padding: 5px 0;
@@ -174,11 +177,17 @@
           <a class="mdl-navigation__link" id="interes" href="{{ route('interes.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forward_10</i>Interes
           </a>
+          <a class="mdl-navigation__link" id="capital" href="{{ route('capital.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">euro_symbol</i>Capital
+          </a>
           <a class="mdl-navigation__link" id="barrio" href="{{ route('barrio.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">directions</i>Barrios
           </a>
           <a class="mdl-navigation__link" id="clientes" href="{{ route('clientes.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">face</i>Clientes
+          </a>
+          <a class="mdl-navigation__link" id="prestamos" href="{{ route('prestamo.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_balance</i>Prestamos
           </a>
         </nav>
       </div>
@@ -198,6 +207,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $('#buscar_1').dropdown();
+        $('#buscar_2').dropdown();
       });
     </script>
   </body>

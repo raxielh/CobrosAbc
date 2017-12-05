@@ -17,6 +17,7 @@ class CreatePagoPrestamoTable extends Migration
             $table->increments('id');
             $table->string('monto');
             $table->string('fecha')->date();
+            $table->string('referencia')->nullable();
             $table->integer('prestamo_id')->unsigned();
             $table->foreign('prestamo_id')->references('id')->on('prestamos');
             $table->integer('cobro_id')->unsigned();

@@ -27,6 +27,7 @@ class CreatePrestamoTable extends Migration
             $table->integer('cobro_id')->unsigned();
             $table->foreign('cobro_id')->references('id')->on('cobros');
             $table->integer('orden')->default(1);
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }

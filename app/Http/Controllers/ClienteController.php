@@ -9,6 +9,7 @@ use Cookie;
 use App\Cobro;
 use App\Cliente;
 use App\Barrio;
+use Exception;
 
 class ClienteController extends Controller
 {

@@ -38,3 +38,8 @@ Route::get('/capital_get', 'CapitalController@get_data_capital')->name('capital_
 Route::resource('prestamo', 'PrestamoController');
 Route::get('/prestamo_get', 'PrestamoController@get_data_prestamo')->name('prestamo_get');
 Route::get('/prestamo_ordenar', 'PrestamoController@ordenar');
+Route::get('/prestamo_ordenar_plus/{prestamo}', 'PrestamoController@plus');
+Route::get('/prestamo_ordenar_minus/{prestamo}', 'PrestamoController@minus');
+
+Route::resource('pago', 'PagoController');
+Route::get('/pago_get/{prestamo}', 'PagoController@get_data_pago')->name('pago_get');

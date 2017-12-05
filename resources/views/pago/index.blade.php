@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 style="margin: 6px;color: #676767;font-weight: 200;"><a href="{{ route('pago.index')}}"><i class="material-icons" style="color: #263238;">arrow_back</i></a> Ordenar prestamos</h3>
+<style media="screen">
+  .mdl-button--fab{
+    color: #fff;
+    background: rgb(68, 220, 80);
+  }
+</style>
+<h3 style="margin: 6px;color: #676767;font-weight: 200;">Pago Prestamo <a href="{{ url('prestamo_ordenar') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i class="material-icons">vertical_align_center</i>Ordenar</a></h3>
 
-  <table id="tbl_barrio" class="mdl-data-table mdl-js-data-table" style="width:100% !important">
+  <table id="tbl_barrio" style="width:100% !important">
     <thead style="background: #37474f;">
       <tr>
         <th></th>
@@ -14,15 +20,15 @@
         <th  style="color:#fff">Valor Prestamo</th>
         <th  style="color:#fff">Tiempo</th>
         <th  style="color:#fff">Cuota</th>
-        <th  style="color:#fff">Fecha</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($data['datos'] as $key => $value)
       <tr>
         <th>
-          <a href="{{ url('prestamo_ordenar_minus') }}/{{ $value->ide }}"><i class="material-icons" style="color: #263238;">arrow_upward</i></a>
-          <a href="{{ url('prestamo_ordenar_plus') }}/{{ $value->ide }}"><i class="material-icons" style="color: #263238;">arrow_downward</i></a>
+          <a class="mdl-button mdl-js-button mdl-button--fab" href="{{ url('pago') }}/{{ $value->ide }}">
+            <i class="material-icons">account_balance_wallet</i>
+          </a>
         </th>
         <th>{{ $value->nombre }}</th>
         <th>{{ $value->identificacion }}</th>
@@ -31,7 +37,6 @@
         <th>{{ $value->valor_prestamo }}</th>
         <th>{{ $value->tiempo }}</th>
         <th>{{ $value->cuota }}</th>
-        <th>{{ $value->fecha }}</th>
       </tr>
       @endforeach
     </tbody>
@@ -39,6 +44,16 @@
 <script type="text/javascript">
 $(function() {
   $("#pago").addClass("active");
+  cargar();
 });
+
+function cargar(){
+  var table=$('#tbl_barrio').DataTable( {
+      "responsive": true,
+      "ordering": false
+  });
+}
+
+
 </script>
 @endsection

@@ -7,6 +7,7 @@ use Yajra\Datatables\Datatables;
 use Cookie;
 use App\Cobro;
 use App\Interes;
+use Exception;
 
 class InteresController extends Controller
 {

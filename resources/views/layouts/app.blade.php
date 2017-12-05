@@ -189,6 +189,9 @@
           <a class="mdl-navigation__link" id="prestamos" href="{{ route('prestamo.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_balance</i>Prestamos
           </a>
+          <a class="mdl-navigation__link" id="pago" href="{{ route('pago.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add_shopping_cart</i>Pago
+          </a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">

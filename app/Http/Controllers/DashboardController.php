@@ -6,7 +6,7 @@ use Cookie;
 use Request;
 use App\Cobro;
 use App\Capital;
-
+use Exception;
 class DashboardController extends Controller
 {
 	public function __construct()

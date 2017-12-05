@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <!-- Styles 
+    <!-- Styles
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
     <style>
     .mdl-layout {
@@ -43,7 +43,7 @@
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <div class="col-md-6">
                                     <!--<input id="email" type="email" class="mdl-textfield__input" name="email" value="{{ old('email') }}" required autofocus>-->
-                                    <input id="email" type="email" class="mdl-textfield__input" name="email" value="1@2.co" required autofocus>
+                                    <input id="email" type="email" class="mdl-textfield__input" name="email" value="" required autofocus>
                                     <label for="email" class="mdl-textfield__label">Correo</label>
                                     @if ($errors->has('email'))
                                         <span class="error-block">
@@ -56,7 +56,7 @@
                         <div class="mdl-textfield mdl-js-textfield">
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="mdl-textfield__input" name="password" required value="123456">
+                                    <input id="password" type="password" class="mdl-textfield__input" name="password" required value="">
                                     <label for="password" class="mdl-textfield__label">Contraseña</label>
                                     @if ($errors->has('password'))
                                         <span class="error-block">
@@ -72,7 +72,7 @@
                             <input type="checkbox" name="remember" id="checkbox3" class="mdl-checkbox__input"  {{ old('remember') ? 'checked' : '' }}>
                             <span class = "mdl-checkbox__label">Recordar</span>
                         </label>
-                    </div> 
+                    </div>
                     <div class="mdl-card__actions">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Entrar</button>
                     </div>
@@ -85,4 +85,3 @@
     </div>
 </body>
 </html>
-

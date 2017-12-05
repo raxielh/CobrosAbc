@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 style="margin: 6px;color: #676767;font-weight: 200;">Prestamos <a href="{{ url('prestamo_ordenar') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i class="material-icons">vertical_align_center</i>Ordenar</a></h3>
+<h3 style="margin: 6px;color: #676767;font-weight: 200;">Prestamos</h3>
 <form action="{{ route('prestamo.store')}}" method="post" id="save_barrio">
   {!! csrf_field() !!}
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
@@ -134,7 +134,7 @@ function borrar(id){
             $(".load").show();
             $.ajax({
               method: "POST",
-              url: "{{ url('clientes') }}/"+id,
+              url: "{{ url('prestamo') }}/"+id,
               data: { _token: "{{ csrf_token() }}",_method: "DELETE" }
             }).done(function( data ) {
               $(".load").hide();

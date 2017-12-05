@@ -7,6 +7,7 @@ use Yajra\Datatables\Datatables;
 use Cookie;
 use App\Cobro;
 use App\Capital;
+use Exception;
 
 class CapitalController extends Controller
 {

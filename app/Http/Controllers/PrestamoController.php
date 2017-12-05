@@ -10,6 +10,7 @@ use App\Cobro;
 use App\Cliente;
 use App\Prestamo;
 use App\Interes;
+use Exception;
 
 class PrestamoController extends Controller
 {
@@ -45,7 +46,7 @@ class PrestamoController extends Controller
                 ->join('clientes', 'prestamos.cliente_id', '=', 'clientes.id')
                 ->selectRaw('*,FORMAT(monto,0) as mascara_monto,FORMAT((monto*interes/100)+monto,0) as valor_prestamo, FORMAT(((monto*interes/100)+monto)/tiempo,0) as cuota,prestamos.id as ide')
                 ->where('clientes.cobro_id',$cobro)
-                ->orderByRaw('orden DESC')
+                ->orderByRaw('orden ASC')
                 ->get();
         $data = array(
                     "cobro"=>$cobro,
@@ -186,4 +187,31 @@ class PrestamoController extends Controller
         return "error fatal ->".$e->getMessage();
       }
     }
+
+    public function plus($id)
+    {
+      try {
+        $prestamo  = Prestamo::findOrFail($id);
+        $orden_actual=$prestamo->orden;
+        $prestamo->orden = $orden_actual+1;
+        $prestamo->update();
+        return back();
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
+    }
+
+    public function minus($id)
+    {
+      try {
+        $prestamo  = Prestamo::findOrFail($id);
+        $orden_actual=$prestamo->orden;
+        $prestamo->orden = $orden_actual-1;
+        $prestamo->update();
+        return back();
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
+    }
+
 }

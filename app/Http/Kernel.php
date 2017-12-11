@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cobrador' => \App\Http\Middleware\CobradorMiddleware::class,
         'dueno' => \App\Http\Middleware\DuenoMiddleware::class,
+        'cors' => \App\Http\Middleware\Cors::class, 
     ];
 }

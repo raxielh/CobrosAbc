@@ -46,3 +46,5 @@ Route::get('/pago_get/{prestamo}', 'PagoController@get_data_pago')->name('pago_g
 
 Route::resource('cobrador', 'CobradorController');
 Route::get('/cobrador_get', 'CobradorController@get_data_cobrador')->name('cobrador_get');
+
+Route::resource('offline', 'OfflineController');

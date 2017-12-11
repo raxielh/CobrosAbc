@@ -58,6 +58,7 @@
           color: #fff;
           font-weight: 300;
           font-size: 20px;
+          padding: 9px;
       }
       .mdl-dialog {
   border: none;
@@ -116,6 +117,9 @@
 }
 .dataTables_filter{
     margin-bottom: 10px;
+}
+.mdl-layout__drawer{
+  width: 247px !important;
 }
     @media (max-width: 500px) {
       #con{
@@ -208,7 +212,17 @@
           <a class="mdl-navigation__link" id="pago" href="{{ route('pago.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add_shopping_cart</i>Pago
           </a>
-
+          @if (currentUser() == 1)
+          <a class="mdl-navigation__link" id="offline" href="{{ route('offline.index')}}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flight_land</i>Fuera de linea
+          </a>
+          @endif
+          <a class="mdl-navigation__link" id="sync" href="{{ route('pago.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">cached</i>Sincronizar
+          </a>
+          <a class="mdl-navigation__link" id="descargar" href="{{ route('pago.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">play_for_work</i>Descargar App
+          </a>
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">

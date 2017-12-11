@@ -217,9 +217,6 @@
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flight_land</i>Fuera de linea
           </a>
           @endif
-          <a class="mdl-navigation__link" id="sync" href="{{ route('pago.index') }}">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">cached</i>Sincronizar
-          </a>
           <a class="mdl-navigation__link" id="descargar" href="{{ route('pago.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">play_for_work</i>Descargar App
           </a>

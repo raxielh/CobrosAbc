@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/key/{key}', 'KeyController@show');
 Route::get('/prestamos/{cobro}', 'KeyController@prestamos');
+Route::get('/prestamos/{id1}/{id2}/{key}', 'KeyController@add_pago');

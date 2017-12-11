@@ -22,6 +22,8 @@ class CreatePagoPrestamoTable extends Migration
             $table->foreign('prestamo_id')->references('id')->on('prestamos');
             $table->integer('cobro_id')->unsigned();
             $table->foreign('cobro_id')->references('id')->on('cobros');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

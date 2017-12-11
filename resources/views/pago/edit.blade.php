@@ -26,6 +26,10 @@
               @endforeach
           </div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+              <label for="input_text" class="mdl-textfield__label">Referencia</label>
+              <input type="text" class="mdl-textfield__input"  name="referencia" value="" />
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
               <label for="input_text" class="mdl-textfield__label">Fecha</label>
               <input type="date" class="mdl-textfield__input"  name="fecha" value="{{ date('Y-m-d') }}" required="" />
           </div>
@@ -39,6 +43,8 @@
               <tr>
                   <th>Monto</th>
                   <th>Fecha</th>
+                  <th>Refrencia</th>
+                  <th>Cobrador</th>
                   <th></th>
               </tr>
           </thead>
@@ -103,10 +109,12 @@ function cargar(){
       columns: [
           {data: 'mascara_monto'},
           {data: 'fecha'},
+          {data: 'referencia'},
+          {data: 'nombre'},
           {data: 'action2', name: 'action2', orderable: false, searchable: false},
       ],
       columnDefs: [
-          { width: 110, targets: 2 },
+          { width: 110, targets: 4 },
       ]
   });
   table

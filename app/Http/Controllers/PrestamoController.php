@@ -16,7 +16,8 @@ class PrestamoController extends Controller
 {
   public function __construct()
   {
-      $this->middleware('auth');
+    $this->middleware('auth');
+    $this->middleware('cobrador');
   }
     /**
      * Display a listing of the resource.
@@ -66,9 +67,9 @@ class PrestamoController extends Controller
                 ->where('clientes.cobro_id',$cobro)
                 ->get();
         return Datatables::of($data)->addColumn('action', function ($data){
-                return '<a href="'.url('prestamo').'/'.$data->ide.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
+                return '<a href="'.url('prestamo').'/'.$data->ide.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i></a>';
         })->addColumn('action2', function ($data){
-                return '<a href="#" onclick="borrar('.$data->ide.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i> Borrar</a>';
+                return '<a href="#" onclick="borrar('.$data->ide.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i></a>';
         })->make(true);
     }
 

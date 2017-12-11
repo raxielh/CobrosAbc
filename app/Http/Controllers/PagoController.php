@@ -18,6 +18,8 @@ class PagoController extends Controller
   public function __construct()
   {
       $this->middleware('auth');
+
+      $this->middleware('cobrador', ['except' => ['index', 'store','get_data_pago','show']]);
   }
     /**
      * Display a listing of the resource.
@@ -100,7 +102,7 @@ class PagoController extends Controller
             return Datatables::of($data)->addColumn('action', function ($data){
                     return '<a href="'.url('prpago').'/'.$data->id.'/edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-blue"><i class="material-icons">mode_edit</i> Editar</a>';
             })->addColumn('action2', function ($data){
-                    return '<a href="#" onclick="borrar('.$data->id.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red"><i class="material-icons">delete_forever</i> Borrar</a>';
+                    return '<a href="#" onclick="borrar('.$data->id.')" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent btn-red oculto"><i class="material-icons">delete_forever</i> Borrar</a>';
             })->make(true);
         }
 

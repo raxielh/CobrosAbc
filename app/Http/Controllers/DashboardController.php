@@ -12,6 +12,7 @@ class DashboardController extends Controller
 	public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('dueno');
     }
 
     public function index($cobro)
@@ -25,7 +26,7 @@ class DashboardController extends Controller
     	$data = array(
     				"cobro"=>$cobro,
     				"nombre_cobro"=>$nombre_cobro,
-					  "datos" =>$cap
+					"datos" =>$cap
 				    );
       return view('dashboard.home',compact('data'));
     }

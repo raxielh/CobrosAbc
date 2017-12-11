@@ -1,9 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+@if (currentUser() == 1)
+  .oculto{
+    display: block;
+  }
+@else
+  .oculto{
+    display: none;
+  }
+@endif
+</style>
 <h3 style="margin: 6px;color: #676767;font-weight: 200;"><a href="{{ route('pago.index')}}"><i class="material-icons" style="color: #263238;">arrow_back</i></a> Pagos Prestamo</h3>
 <div class = "mdl-grid">
-    <div class = "mdl-cell mdl-cell--6-col mdl-cell--12-col-phone graybox">
+    <div class = "mdl-cell mdl-cell--9-col mdl-cell--12-col-phone graybox">
         <h4 style="margin: 6px;color: #676767;font-weight: 200;text-align:center">Pagar y historial de pago</h4>
         <form action="{{ url('pago')}}" method="post" id="save_barrio">
           {!! csrf_field() !!}
@@ -33,7 +44,7 @@
           </thead>
         </table>
     </div>
-    <div class = "mdl-cell mdl-cell--6-col mdl-cell--12-col-phone graybox">
+    <div class = "mdl-cell mdl-cell--3-col mdl-cell--12-col-phone graybox">
         <h4 style="margin: 6px;color: #676767;font-weight: 200;text-align:end">Detalle de prestamo</h4>
 
           <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cliente:</strong> {{ $data['datos'][0]->nombre }}</p>

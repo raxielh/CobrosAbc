@@ -17,7 +17,6 @@ class CreateRolTable extends Migration
             $table->increments('id');
             $table->string('nombre')->unique();
             $table->mediumText('descripcion')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

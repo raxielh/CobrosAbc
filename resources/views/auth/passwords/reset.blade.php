@@ -1,13 +1,41 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <div class="panel-body">
+    <title>{{ config('app.name') }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- Styles
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
+    <style>
+    .mdl-layout {
+      align-items: center;
+      justify-content: center;
+    }
+    .mdl-layout__content {
+        padding: 24px;
+        flex: none;
+    }
+    .error-block{
+        font-weight: 300;
+        color: #c30000;
+    }
+    </style>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+        <main class="mdl-layout__content">
+            <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">{{ config('app.name') }}</h2>
+                </div>
                     <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
 
@@ -62,9 +90,8 @@
                             </div>
                         </div>
                     </form>
-                </div>
             </div>
-        </div>
+        </main>
     </div>
-</div>
-@endsection
+</body>
+</html>

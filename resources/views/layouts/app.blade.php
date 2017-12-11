@@ -114,6 +114,9 @@
 .active{
       background: #26acac;
 }
+.dataTables_filter{
+    margin-bottom: 10px;
+}
     @media (max-width: 500px) {
       #con{
         padding:0em !important;
@@ -132,7 +135,8 @@
     </style>
   </head>
   <body>
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <!--<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">-->
+      <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header  is-small-screen">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title" style="color:{{$data['nombre_cobro']['color']}}">{{$data["nombre_cobro"]["nombre"]}}</span>
@@ -158,21 +162,32 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
           </form>
+          @if (currentUser() == 1)
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
             <li class="mdl-menu__item">Editar Perfil</li>
           </ul>
+          @endif
         </div>
       </header>
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
           <div class="demo-avatar-dropdown" style="font-size: 30px;font-weight: 100;">
-            <a href="{{ route('home')}}"><i class="material-icons" style="color: #fff;">arrow_back</i></a><span>{{ config('app.name') }}</span>
+            <span>{{ config('app.name') }}</span>
             <div class="mdl-layout-spacer"></div>
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          @if (currentUser() == 1)
+          <a class="mdl-navigation__link" href="{{ route('home')}}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">arrow_back</i>Cobros
+          </a>
+          @endif
           <a class="mdl-navigation__link" id="home" href="{{ route('dashboard',[$data['cobro']]) }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Inicio
+          </a>
+          @if (currentUser() == 1)
+          <a class="mdl-navigation__link" id="cobrador" href="{{ route('cobrador.index') }}">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">accessibility</i>Cobradores
           </a>
           <a class="mdl-navigation__link" id="interes" href="{{ route('interes.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forward_10</i>Interes
@@ -189,9 +204,11 @@
           <a class="mdl-navigation__link" id="prestamos" href="{{ route('prestamo.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">account_balance</i>Prestamos
           </a>
+          @endif
           <a class="mdl-navigation__link" id="pago" href="{{ route('pago.index') }}">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">add_shopping_cart</i>Pago
           </a>
+
         </nav>
       </div>
       <main class="mdl-layout__content mdl-color--grey-100">

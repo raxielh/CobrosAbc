@@ -7,7 +7,7 @@
     background: rgb(68, 220, 80);
   }
 </style>
-<h3 style="margin: 6px;color: #676767;font-weight: 200;">Pago Prestamo <a href="{{ url('prestamo_ordenar') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i class="material-icons">vertical_align_center</i>Ordenar</a></h3>
+<h3 style="margin: 6px;color: #676767;font-weight: 200;">Pago Prestamo @if (currentUser() == 1)<a href="{{ url('prestamo_ordenar') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i class="material-icons">vertical_align_center</i>Ordenar</a>@endif</h3>
 
   <table id="tbl_barrio" style="width:100% !important">
     <thead style="background: #37474f;">

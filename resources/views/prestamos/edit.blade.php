@@ -117,11 +117,9 @@ function cargar(){
           {data: 'fecha'},
           {data: 'referencia'},
           {data: 'action', name: 'action', orderable: false, searchable: false},
-          {data: 'action2', name: 'action2', orderable: false, searchable: false},
       ],
       columnDefs: [
           { width: 1, targets: 9 },
-          { width: 1, targets: 10 }
       ]
   });
   table

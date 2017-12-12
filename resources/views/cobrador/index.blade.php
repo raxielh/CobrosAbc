@@ -10,11 +10,19 @@
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <label for="input_email" class="mdl-textfield__label">Correo</label>
-        <input type="email" class="mdl-textfield__input" id="input_email" name="email"/>
+        <input type="email" class="mdl-textfield__input" id="input_email" name="email" required="" />
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <label for="input_email" class="mdl-textfield__label">Contraseña</label>
-        <input type="password" class="mdl-textfield__input" id="input_pass" name="password"/>
+        <input type="password" class="mdl-textfield__input" id="input_pass" name="password" required="" />
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+        <label for="input_text" class="mdl-textfield__label">Direccion</label>
+        <input type="text" class="mdl-textfield__input" id="input_text" name="direccion" />
+    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+        <label for="input_text" class="mdl-textfield__label">Telefono</label>
+        <input type="text" class="mdl-textfield__input" id="input_text" name="telefono" />
     </div>
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored "><i class="material-icons">save</i>Guardar</button>
     <hr>
@@ -23,6 +31,8 @@
           <tr>
               <th>Nombre</th>
               <th>Correo</th>
+              <th>Direccion</th>
+              <th>Telefono</th>
               <th></th><th></th>
           </tr>
       </thead>
@@ -68,12 +78,14 @@ function cargar(){
       columns: [
           {data: 'name'},
           {data: 'email'},
+          {data: 'direccion'},
+          {data: 'telefono'},
           {data: 'action', name: 'action', orderable: false, searchable: false},
           {data: 'action2', name: 'action2', orderable: false, searchable: false},
       ],
       columnDefs: [
-          { width: 110, targets: 2 },
-          { width: 110, targets: 3 }
+          { width: 110, targets: 4 },
+          { width: 110, targets: 5 }
       ]
   });
   table

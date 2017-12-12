@@ -1,6 +1,8 @@
 <?php
 
 use App\Cobro;
+use App\Cobrador;
+use Illuminate\Support\Facades\DB;
 
 function currentUser()
 {
@@ -14,4 +16,16 @@ function currentUser()
     	return false;
     }
     
+}
+
+function esadmin()
+{
+/*	$id=auth()->user()->id;
+    $admin=DB::table('users')
+                ->selectRaw('*')
+                ->where('admin',1)
+                ->get();
+    return count($admin);
+*/
+return  1;   
 }

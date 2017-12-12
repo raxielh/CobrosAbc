@@ -13,6 +13,14 @@
         <label for="input_email" class="mdl-textfield__label">Correo</label>
         <input type="email" class="mdl-textfield__input" id="input_email" name="email" required="" value="  {{($data['datos']['email'])}}"/>
     </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+        <label for="input_text" class="mdl-textfield__label">Direccion</label>
+        <input type="text" class="mdl-textfield__input" id="input_text" name="direccion" value="{{($data['datos']['direccion'])}}" />
+    </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+        <label for="input_text" class="mdl-textfield__label">Telefono</label>
+        <input type="text" class="mdl-textfield__input" id="input_text" name="telefono" value="{{($data['datos']['telefono'])}}" />
+    </div>
     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored "><i class="material-icons">save</i>Guardar</button>
     <hr>
 </form>
@@ -21,6 +29,8 @@
           <tr>
               <th>Nombre</th>
               <th>Correo</th>
+              <th>Direccion</th>
+              <th>Telefono</th>
               <th></th>
           </tr>
       </thead>
@@ -67,10 +77,12 @@ function cargar(){
       columns: [
           {data: 'name'},
           {data: 'email'},
+          {data: 'direccion'},
+          {data: 'telefono'},
           {data: 'action', name: 'action', orderable: false, searchable: false},
       ],
       columnDefs: [
-          { width: 110, targets: 2 }
+          { width: 110, targets: 4 }
       ]
   });
   table

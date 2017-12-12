@@ -90,6 +90,8 @@ class CobradorController extends Controller
             $cobrador->name = ucwords($request->name);
             $cobrador->email = $request->email;
             $cobrador->password =bcrypt($request->password);
+            $cobrador->direccion = $request->direccion;
+            $cobrador->telefono = $request->telefono;
             $cobrador->save();
             $asignar = new Asignar_rol();
             $asignar->user_id = $cobrador->id;
@@ -145,6 +147,8 @@ class CobradorController extends Controller
         $cobrador = Cobrador::findOrFail($id);
         $cobrador->name = ucwords($request->name);
         $cobrador->email = $request->email;
+        $cobrador->direccion = $request->direccion;
+        $cobrador->telefono = $request->telefono;
         $cobrador->update();
         return "Cobrador editado con exito";
       } catch (Exception $e) {

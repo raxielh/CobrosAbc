@@ -125,6 +125,9 @@
 	          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="hdrbtn">
 	            {{ Auth::user()->name }}
 	          </button>
+	            <a class="mdl-button mdl-js-button mdl-js-ripple-effect" id="admin" href="{{ route('admin.index') }}">
+	              <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation" style="color: #fff !important">event_seat</i> Administrador
+	            </a>
 	          <a href="{{ route('logout') }}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
 	            <i class="material-icons">exit_to_app</i>
 	          </a>

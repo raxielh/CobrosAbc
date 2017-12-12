@@ -22,6 +22,11 @@ class KeyController extends Controller
         $key = Key::all()->where('key',$id);
         return response()->json($key);
     }
+    
+    public function test()
+    {
+        return 'true';
+    }
 
     public function prestamos($cobro)
     {

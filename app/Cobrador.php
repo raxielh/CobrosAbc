@@ -17,7 +17,7 @@ class Cobrador extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','direccion','telefono','estado','admin',
     ];
 
     /**

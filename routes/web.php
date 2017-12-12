@@ -48,3 +48,12 @@ Route::resource('cobrador', 'CobradorController');
 Route::get('/cobrador_get', 'CobradorController@get_data_cobrador')->name('cobrador_get');
 
 Route::resource('offline', 'OfflineController');
+
+
+Route::resource('admin', 'AdministradorController');
+
+Route::resource('usuarios', 'UsuariosController');
+Route::get('/usuarios_get', 'UsuariosController@get_data_usuarios')->name('usuarios_get');
+
+Route::resource('tipop', 'TipoPrestamoController');
+Route::get('/tipop_get', 'TipoPrestamoController@get_data_tipop')->name('tipop_get');

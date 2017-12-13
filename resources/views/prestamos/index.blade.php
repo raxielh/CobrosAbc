@@ -28,7 +28,7 @@
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
         <label for="input_text" class="mdl-textfield__label">Referencia</label>
-        <input type="text" class="mdl-textfield__input" id="input_text" name="referencia" />
+        <input type="text" class="mdl-textfield__input" id="referencia" name="referencia" />
     </div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
       <select name="cliente" required class="ui search dropdown" id="buscar_2">
@@ -45,6 +45,7 @@
     <table id="tbl_barrio" class="table display responsive no-wrap" style="width:100% !important">
       <thead>
           <tr>
+            <th>id</th>
               <th>Cliente</th>
               <th>Identificacion</th>
               <th>Monto</th>
@@ -80,7 +81,10 @@ $(function() {
         success: function (data)
         {
           $(".load").hide();
-          $("#save_barrio")[0].reset();
+          $("#monto").val('');
+          $("#mascara_monto").val('');
+          $("#referencia").val('');
+          $("#tiempo").val('');
           cargar();
           mensaje(data);
         },
@@ -102,6 +106,7 @@ function cargar(){
       "processing": true,
       ajax: '{{ route('prestamo_get')}}',
       columns: [
+      {data: 'ide'},
           {data: 'nombre'},
           {data: 'identificacion'},
           {data: 'mascara_monto'},
@@ -120,8 +125,8 @@ function cargar(){
       ]
   });
   table
-      .column( '0:visible' )
-      .order( 'asc' )
+      .column( 0 ).visible( false )
+      .order( 'desc' )
       .draw();
 }
 

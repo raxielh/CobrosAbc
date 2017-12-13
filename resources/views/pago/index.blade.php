@@ -13,6 +13,7 @@
     <thead style="background: #37474f;">
       <tr>
         <th></th>
+        <th  style="color:#fff">Orden</th>
         <th  style="color:#fff">Cliente</th>
         <th  style="color:#fff">Identificacion</th>
         <th  style="color:#fff">Monto</th>
@@ -30,6 +31,7 @@
             <i class="material-icons">account_balance_wallet</i>
           </a>
         </th>
+        <th>{{ $value->orden }}</th>
         <th>{{ $value->nombre }}</th>
         <th>{{ $value->identificacion }}</th>
         <th>{{ $value->mascara_monto }}</th>
@@ -50,10 +52,12 @@ $(function() {
 function cargar(){
   var table=$('#tbl_barrio').DataTable( {
       "responsive": true,
-      "ordering": false
   });
+  table
+      .column( 1 ).visible( false )
+      .order( 'asc' )
+      .draw();
 }
-
 
 </script>
 @endsection

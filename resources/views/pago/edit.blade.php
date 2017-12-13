@@ -21,8 +21,8 @@
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
               <label for="input_text" class="mdl-textfield__label">Monto</label>
               @foreach ($data['datos'] as $key => $value)
-              <input type="hidden" id="monto" name="monto" required="" value="{{ $value->cuota_m }}" />
-              <input type="text" class="mdl-textfield__input" id="mascara_monto" name="" value="{{ $value->cuota_m }}" required="" />
+              <input type="hidden" id="monto" name="monto" required="" value="{{ round($value->cuota_m) }}" />
+              <input type="text" class="mdl-textfield__input" id="mascara_monto" name="" value="{{ round($value->cuota_m) }}" required="" />
               @endforeach
           </div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
@@ -41,6 +41,7 @@
         <table id="tbl_barrio" class="table display responsive no-wrap" style="width:100% !important">
           <thead>
               <tr>
+                  <th>id</th>
                   <th>Monto</th>
                   <th>Fecha</th>
                   <th>Refrencia</th>
@@ -53,15 +54,24 @@
     <div class = "mdl-cell mdl-cell--3-col mdl-cell--12-col-phone graybox">
         <h4 style="margin: 6px;color: #676767;font-weight: 200;text-align:end">Detalle de prestamo</h4>
 
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cliente:</strong> {{ $data['datos'][0]->nombre }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Identificacion:</strong> {{ $data['datos'][0]->identificacion }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Monto:</strong> {{ number_format($data['datos'][0]->monto) }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Interes:</strong> {{ $data['datos'][0]->interes }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Valor Prestamo:</strong>  {{ $data['datos'][0]->valor_prestamo }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Tiempo:</strong> {{ $data['datos'][0]->tiempo }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cuota:</strong> {{ $data['datos'][0]->cuota }}</p>
-         <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Pagado:</strong> {{ number_format($data['pp'][0]->pagado) }}</p>
-          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Debe:</strong> {{ number_format(($data['datos'][0]->monto)-($data['pp'][0]->pagado)) }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cliente:</strong>
+            {{ $data['datos'][0]->nombre }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Identificacion:</strong>
+            {{ $data['datos'][0]->identificacion }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Monto:</strong>
+            {{ number_format($data['datos'][0]->monto) }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Interes:</strong>
+            {{ $data['datos'][0]->interes }}%</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Valor Prestamo:</strong>
+            {{ $data['datos'][0]->valor_prestamo }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Tiempo:</strong>
+            {{ $data['datos'][0]->tiempo }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cuota:</strong>
+            {{ $data['datos'][0]->cuota }}</p>
+         <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Pagado:</strong>
+          {{ number_format($data['pp'][0]->pagado) }}</p>
+          <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Debe:</strong> 
+            {{ number_format(((($data['datos'][0]->monto)*($data['datos'][0]->interes/100))+$data['datos'][0]->monto)-($data['pp'][0]->pagado)) }}</p>
           <p style="margin:0px 0px 6px;text-align:end;font-size:20px;font-weight: 300;"><strong>Cuotas faltantes:</strong> {{ $data['datos'][0]->tiempo-$data['pp'][0]->restantes  }}</p>
     </div>
  </div>
@@ -107,6 +117,7 @@ function cargar(){
       "processing": true,
       ajax: '{{ url('pago_get')}}/{{$data['datos'][0]->ide}}',
       columns: [
+          {data: 'ide'},
           {data: 'mascara_monto'},
           {data: 'fecha'},
           {data: 'referencia'},
@@ -118,7 +129,7 @@ function cargar(){
       ]
   });
   table
-      .column( '1:visible' )
+      .column( 0 ).visible( false )
       .order( 'desc' )
       .draw();
 }

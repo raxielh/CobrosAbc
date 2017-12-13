@@ -18,7 +18,7 @@ class DashboardController extends Controller
     public function index($cobro)
     {
     	Cookie::forget('cobro');
-        Cookie::queue('cobro',$cobro,9999);
+        Cookie::queue('cobro',$cobro,9999*2);
 			//return Request::cookie('nombre');
         $cap = Capital::where('cobro_id',$cobro)
                ->selectRaw('FORMAT(sum(monto),0) as total')->get();

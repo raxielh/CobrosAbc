@@ -73,7 +73,7 @@ class PagoController extends Controller
               ->where('prestamos.id',$id)
               ->orderByRaw('orden DESC')
               ->get();
-      $pp =  DB::table('pago_prestamos')
+       $pp =  DB::table('pago_prestamos')
               ->selectRaw('sum(monto) as pagado,count(*) as restantes')
               ->where('pago_prestamos.cobro_id',$cobro)
               ->where('prestamo_id',$id)

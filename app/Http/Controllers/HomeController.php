@@ -27,12 +27,15 @@ class HomeController extends Controller
     {
         $id=Auth::user()->id;
         $cobro= Asignar_rol::all()->where('user_id',$id);
-        if(count($cobro)>0){
-            $cobro= $cobro[1]->cobro_id;
-            return redirect('dashboard/'.$cobro);
+        if(count($cobro)){
+            foreach ($cobro as $value)
+            {
+                $cobro= $value->cobro_id;
+                return redirect('dashboard/'.$cobro);
+            }
         }else{
             return view('home');
         }
-        
+
     }
 }

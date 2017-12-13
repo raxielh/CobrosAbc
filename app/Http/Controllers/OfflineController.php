@@ -54,9 +54,12 @@ class OfflineController extends Controller
      */
     public function store(Request $request)
     {
+        //$num=random_int(1111,99999999);
+        $fecha = date_create();
+        date_timestamp_get($fecha);
       try {
         $pp = new Key();
-        $pp->key = random_int(111111111, 999999999);
+        $pp->key = date_timestamp_get($fecha); //intval($num*7);
         $pp->cobro_id = Cookie::get('cobro');
         $pp->save();
         return redirect('offline');
@@ -84,7 +87,7 @@ class OfflineController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -96,7 +99,16 @@ class OfflineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $fecha = date_create();
+        date_timestamp_get($fecha);
+      try {
+        $pp = Key::findOrFail($id);
+        $pp->key = date_timestamp_get($fecha); //intval($num*7);
+        $pp->update();
+        return redirect('offline');
+      } catch (Exception $e) {
+        return "error fatal ->".$e->getMessage();
+      }
     }
 
     /**
